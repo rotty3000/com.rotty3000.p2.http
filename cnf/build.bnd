@@ -16,8 +16,3 @@
         pretty		=	true;\
         compress	=	false;\
         url			=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
-
--augment.os_ht: \
-	org.osgi.service.http; \
-		requirement:="osgi.wiring.package;filter:='(&(osgi.wiring.package=javax.servlet)(&(version>=2.1.0)(!(version>3.2.0))))",\
-		requirement:="osgi.wiring.package;filter:='(&(osgi.wiring.package=javax.servlet.http)(&(version>=2.1.0)(!(version>3.2.0))))"
