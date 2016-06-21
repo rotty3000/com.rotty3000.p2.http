@@ -26,12 +26,10 @@
 	org.eclipse.equinox.metatype;version='[1.4.200,1.4.201)',\
 	org.eclipse.jetty.http;version='[9.3.9,9.3.10)',\
 	org.eclipse.jetty.io;version='[9.3.9,9.3.10)',\
-	org.eclipse.jetty.jmx;version='[9.3.9,9.3.10)',\
 	org.eclipse.jetty.security;version='[9.3.9,9.3.10)',\
 	org.eclipse.jetty.server;version='[9.3.9,9.3.10)',\
 	org.eclipse.jetty.servlet;version='[9.3.9,9.3.10)',\
 	org.eclipse.jetty.util;version='[9.3.9,9.3.10)',\
 	org.eclipse.osgi.services;version='[3.5.100,3.5.101)',\
-	org.osgi.service.metatype;version='[1.3.0,1.3.1)',\
-	org.slf4j.api;version='[1.7.2,1.7.3)'
+	org.osgi.service.metatype;version='[1.3.0,1.3.1)'
 -runproperties: org.osgi.service.http.port=8091
