@@ -1,0 +1,23 @@
+#
+# This file is left open for you to define your macros
+#
+
+-plugin.4.Central = \
+    aQute.bnd.deployer.repository.wrapper.Plugin; \
+        location            =	"${build}/cache/wrapper"; \
+        reindex				=	true, \
+    aQute.bnd.repository.maven.provider.MavenBndRepository; \
+		releaseUrl			=	https://repo.maven.apache.org/maven2/; \
+		name				=	Central
+
+-plugin.4.NeonI20160606-1100:  \
+    aQute.bnd.repository.p2.provider.P2Repository; \
+        name		=	"NeonI20160606-1100"; \
+        pretty		=	true;\
+        compress	=	false;\
+        url			=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
+
+-augment.os_ht: \
+	org.osgi.service.http; \
+		requirement:="osgi.wiring.package;filter:='(&(osgi.wiring.package=javax.servlet)(&(version>=2.1.0)(!(version>3.2.0))))",\
+		requirement:="osgi.wiring.package;filter:='(&(osgi.wiring.package=javax.servlet.http)(&(version>=2.1.0)(!(version>3.2.0))))"
