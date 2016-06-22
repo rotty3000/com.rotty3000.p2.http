@@ -4,7 +4,7 @@
 
 -buildrepo: Local
 
--plugin.4.Central = \
+-plugin.4.Central: \
     aQute.bnd.deployer.repository.wrapper.Plugin; \
         location            =	"${build}/cache/wrapper"; \
         reindex				=	true, \
@@ -12,17 +12,17 @@
 		releaseUrl			=	https://repo.maven.apache.org/maven2/; \
 		name				=	Central
 
--plugin.6.Local:\
+-plugin.6.Local: \
     aQute.bnd.repository.maven.provider.MavenBndRepository; \
-        name                =   Local
+        name                =	Local
 
--plugin.7.NeonI20160606-1100:  \
+-plugin.7.NeonI20160606-1100: \
     aQute.bnd.repository.p2.provider.P2Repository; \
-        name		=	"NeonI20160606-1100"; \
-        pretty		=	true;\
-        compress	=	false;\
-        url			=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
+        name				=	"NeonI20160606-1100"; \
+        pretty				=	true; \
+        compress			=	false; \
+        url					=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
 
--pom:\
-    groupid =   com.rotty3000,\
+-pom: \
+    groupid =   com.rotty3000, \
     version =   ${versionmask;===;${@version}}-SNAPSHOT
