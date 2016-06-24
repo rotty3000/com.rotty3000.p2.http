@@ -16,12 +16,15 @@
     aQute.bnd.repository.maven.provider.MavenBndRepository; \
         name                =	Local
 
--plugin.7.NeonI20160606-1100: \
+#-plugin.7.NeonI20160606-1100: \
+#    aQute.bnd.repository.p2.provider.P2Repository; \
+#        name				=	"NeonI20160606-1100"; \
+#        url					=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
+
+-plugin.7.Jetty9.3.9.v20160517: \
     aQute.bnd.repository.p2.provider.P2Repository; \
-        name				=	"NeonI20160606-1100"; \
-        pretty				=	true; \
-        compress			=	false; \
-        url					=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
+        name				=	"Jetty9.3.9.v20160517"; \
+        url					=	"http://download.eclipse.org/jetty/updates/jetty-bundles-9.x/9.3.9.v20160517/"
 
 -pom: \
     groupid =   com.rotty3000, \

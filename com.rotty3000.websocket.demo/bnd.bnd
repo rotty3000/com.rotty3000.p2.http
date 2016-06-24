@@ -1,0 +1,9 @@
+Bundle-Version: 1.0.0
+
+-buildpath: \
+	biz.aQute.bnd.annotation,\
+	javax.websocket-api,\
+	org.osgi.service.component.annotations,\
+	org.osgi.service.http
+
+-includeresource.bundle: META-INF/resources=web-resources

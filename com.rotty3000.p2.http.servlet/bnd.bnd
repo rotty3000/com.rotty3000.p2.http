@@ -1,6 +1,0 @@
-Bundle-Version: 1.0.0
-
--buildpath: \
-	javax.servlet,\
-	org.osgi.service.component.annotations,\
-	org.osgi.service.http.whiteboard

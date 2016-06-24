@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>com.rotty3000.p2.http.servlet</name>
+	<name>com.rotty3000.websocket.jetty.customizer</name>
 	<comment></comment>
 	<projects>
 	</projects>
