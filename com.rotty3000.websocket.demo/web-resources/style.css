@@ -1,0 +1,15 @@
+#output {
+	position: absolute;
+	top: 100px;
+	left: 8px;
+	bottom: 8px;
+	right: 8px;
+
+	border: 2px solid black;
+	overflow: auto;
+}
+
+pre {
+	font-face: monospace;
+	margin: 0 0 0 0;
+}

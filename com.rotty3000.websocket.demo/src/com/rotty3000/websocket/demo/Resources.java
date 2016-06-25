@@ -6,7 +6,7 @@ import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 @Component(
 	immediate = true,
 	property = {
-		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN + "=/res/*",
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN + "=/resources/*",
 		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX + "=/META-INF/resources"
 	},
 	service = Object.class

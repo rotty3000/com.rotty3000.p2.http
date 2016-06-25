@@ -1,36 +1,56 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="/resources/style.css"/>
 	<script type="text/javascript">
-		function WebSocketTest() {
-			if ("WebSocket" in window) {
-				var ws = new WebSocket("ws://" + document.location.host + "/simple");
+		var websocketsEnabled = ("WebSocket" in window);
 
-				ws.onopen = function() {
-					ws.send("Message to send");
+		function logg(msg) {
+			var output = document.getElementById('output')
+			output.innerHTML += '<pre>' + msg + '</pre>';
+			output.scrollTop = output.scrollHeight;
+		}
 
-					console.log("Message is sent.");
-				};
+		function startLogging() {
+			if (!websocketsEnabled) {
+				logg("[COM] No WebSocket support. Aborting!");
 
-				ws.onmessage = function (evt) {
-					console.log("Message is received:" + evt.data);
-				};
-
-				ws.onclose = function() {
-					console.log("Connection is closed.");
-				};
-	        }
-	        else {
-				console.log("WebSocket NOT supported by your Browser!");
+				return;
 			}
+
+			var ws = new WebSocket("ws://" + document.location.host + "/simple");
+
+			ws.onopen = function() {
+				ws.send("START");
+
+				logg("[COM] Asked for logs");
+			};
+
+			ws.onmessage = function (evt) {
+				logg("[LOG] " + evt.data);
+			};
+
+			ws.onclose = function() {
+				logg("[COM] Connection is closed.");
+			};
 		}
 	</script>
 </head>
 <body>
-
-   <div id="sse">
-      <a href="javascript:WebSocketTest()">Run WebSocket</a>
-   </div>
-
+	<h2>Log UI</h2>
+	<div id="sse">
+		<a href="javascript:startLogging()">Start Logging</a>
+	</div>
+	<div id="output"></div>
+	<script>
+	(function() {
+		if (websocketsEnabled) {
+			logg("[COM] WebSocket supported by your Browser! Request the logs when ready!");
+        }
+        else {
+        	logg("[COM] WebSocket NOT supported by your Browser!");
+		}
+	})();
+	</script>
 </body>
 </html>

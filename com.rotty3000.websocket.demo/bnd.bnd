@@ -1,4 +1,5 @@
 Bundle-Version: 1.0.0
+Private-Package: com.rotty3000.websocket.demo
 
 -buildpath: \
 	biz.aQute.bnd.annotation,\

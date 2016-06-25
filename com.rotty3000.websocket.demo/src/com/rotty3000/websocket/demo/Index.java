@@ -8,7 +8,7 @@ import aQute.bnd.annotation.headers.RequireCapability;
 @Component(
 	immediate = true,
 	property = {
-		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN + "=",
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN + "= ",
 		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN + "=/",
 		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN + "=/index.html",
 		HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX + "=/META-INF/resources/index.html",

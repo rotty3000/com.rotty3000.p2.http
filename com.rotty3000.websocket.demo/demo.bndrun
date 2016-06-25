@@ -15,10 +15,7 @@
 	osgi.identity;filter:='(osgi.identity=com.rotty3000.websocket.demo)',\
 	osgi.identity;filter:='(osgi.identity=com.rotty3000.websocket.jetty.customizer)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
-	osgi.identity;filter:='(osgi.identity=org.eclipse.equinox.http.jetty)',\
-	osgi.identity;filter:='(osgi.identity=org.eclipse.equinox.http.servlet)',\
-	osgi.identity;filter:='(osgi.identity=org.eclipse.equinox.metatype)'
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)'
 
 -runbundles: \
 	com.rotty3000.websocket.api.spyfly.fragment;version=snapshot,\
