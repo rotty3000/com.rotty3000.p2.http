@@ -1,8 +1,6 @@
 package com.rotty3000.websocket.demo;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -11,10 +9,8 @@ import java.util.LinkedList;
 import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.MessageHandler;
-import javax.websocket.RemoteEndpoint;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -75,26 +71,39 @@ public class SimpleEndpoint extends Endpoint {
 	public class LogReader {
 
 		public LogReader(Basic remote) {
-			thread = new Thread(() -> {
-				try (FileInputStream in = new FileInputStream("/var/log/syslog");) {
+			this.remote = remote;
+		}
+
+		public void log(String message) {
+			try {
+				remote.sendText(message);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void start() throws Exception {
+			Runnable task = () -> {
+				try (FileInputStream in = new FileInputStream("/var/log/syslog")) {
 					FileChannel fc = in.getChannel();
 					ByteBuffer bb = ByteBuffer.allocate(1024);
 					StringBuilder lineCurrent = new StringBuilder();
-
 					LinkedList<String> fifo = new LinkedList<String>();
-
-					int result;
 					boolean reachedFirstEOF = false;
+					int result;
 
-					while(!stop && (result = fc.read(bb)) >= -1) {
+					while(!stop) {
+						result = fc.read(bb);
 						if (result == -1) {
 							if (!reachedFirstEOF) {
 								for (String line : fifo) {
-									remote.sendText(line);
+									log(line);
 								}
+								fifo.clear();
 							}
 							reachedFirstEOF = true;
-							Thread.sleep(200);
+							Thread.sleep(400);
 							continue;
 						}
 					    bb.flip();
@@ -106,12 +115,12 @@ public class SimpleEndpoint extends Endpoint {
 					    	else {
 					    		if (!reachedFirstEOF) {
 					    			fifo.add(lineCurrent.toString());
-					    			if (fifo.size() == 10) {
+					    			if (fifo.size() > 10) {
 					    				fifo.removeFirst();
 					    			}
 					    		}
-					    		else {
-					    			remote.sendText(lineCurrent.toString());
+					    		else if (lineCurrent.length() != 0) {
+					    			log(lineCurrent.toString());
 					    		}
 					    		lineCurrent = new StringBuilder();
 					    	}
@@ -120,12 +129,12 @@ public class SimpleEndpoint extends Endpoint {
 					}
 				}
 				catch (Exception e) {
-
+					log("[ERROR] " + e.getMessage());
 				}
-			});
-		}
+			};
 
-		public void start() throws Exception {
+			thread = new Thread(task);
+
 			thread.start();
 		}
 
@@ -133,7 +142,8 @@ public class SimpleEndpoint extends Endpoint {
 			stop = true;
 		}
 
-		private final Thread thread;
+		private final Basic remote;
+		private Thread thread;
 		private boolean stop = false;
 
 	}
