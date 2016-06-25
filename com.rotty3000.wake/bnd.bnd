@@ -1,0 +1,6 @@
+Bundle-Activator: com.rotty3000.wake.Activator
+Bundle-Version: 1.0.0
+-buildpath: \
+	osgi.core,\
+	org.eclipse.equinox.http.jetty,\
+	org.eclipse.equinox.http.servlet
