@@ -1,15 +1,22 @@
 package com.rotty3000.websocket.jetty.customizer;
 
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletException;
+import javax.websocket.CloseReason;
 import javax.websocket.Endpoint;
+import javax.websocket.EndpointConfig;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpointConfig;
+import javax.websocket.server.ServerEndpointConfig.Configurator;
 
 import org.eclipse.equinox.http.jetty.JettyCustomizer;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.websocket.jsr356.JsrSession;
 import org.eclipse.jetty.websocket.jsr356.server.ServerContainer;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 import org.osgi.framework.Bundle;
@@ -85,19 +92,7 @@ public class WebsocketCustomizer extends JettyCustomizer
 		}
 
 		serverEndpointConfig.setConfigurator(
-			reference,
-			new ServerEndpointConfig.Configurator() {
-
-				@SuppressWarnings("unchecked")
-				@Override
-				public <T> T getEndpointInstance(
-					Class<T> endpointClass) {
-
-					return (T)serviceObjects.getService();
-				}
-
-			}
-		);
+			reference, new ServiceObjectsConfigurator(serviceObjects));
 
 		if (isNew) {
 			try {
@@ -128,7 +123,10 @@ public class WebsocketCustomizer extends JettyCustomizer
 		ServiceReference<Endpoint> reference,
 		ServerEndpointConfigWrapper serverEndpointConfig) {
 
-		serverEndpointConfig.removeConfigurator(reference);
+		ServiceObjectsConfigurator configurator =
+			serverEndpointConfig.removeConfigurator(reference);
+
+		configurator.close();
 	}
 
 	private final BundleContext bundleContext;

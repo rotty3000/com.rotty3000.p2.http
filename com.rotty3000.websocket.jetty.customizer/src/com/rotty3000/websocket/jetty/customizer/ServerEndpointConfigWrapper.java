@@ -25,7 +25,7 @@ public class ServerEndpointConfigWrapper implements ServerEndpointConfig {
 	}
 
 	public Configurator getConfigurator() {
-		Entry<ServiceReference<Endpoint>, Configurator> entry =
+		Entry<ServiceReference<Endpoint>, ServiceObjectsConfigurator> entry =
 			endpoints.firstEntry();
 
 		if (entry == null) {
@@ -63,12 +63,15 @@ public class ServerEndpointConfigWrapper implements ServerEndpointConfig {
 		return delegate.getSubprotocols();
 	}
 
-	public void removeConfigurator(ServiceReference<Endpoint> reference) {
-		endpoints.remove(reference);
+	public ServiceObjectsConfigurator removeConfigurator(
+		ServiceReference<Endpoint> reference) {
+
+		return endpoints.remove(reference);
 	}
 
 	public void setConfigurator(
-		ServiceReference<Endpoint> reference, Configurator configurator) {
+		ServiceReference<Endpoint> reference,
+		ServiceObjectsConfigurator configurator) {
 
 		endpoints.put(reference, configurator);
 	}
@@ -86,8 +89,9 @@ public class ServerEndpointConfigWrapper implements ServerEndpointConfig {
 	};
 
 	private ServerEndpointConfig delegate;
-	private ConcurrentSkipListMap<ServiceReference<Endpoint>, Configurator>
-		endpoints = new ConcurrentSkipListMap<>();
+	private ConcurrentSkipListMap<
+		ServiceReference<Endpoint>, ServiceObjectsConfigurator>
+			endpoints = new ConcurrentSkipListMap<>();
 
 	final class NullEndpoint extends Endpoint {
 
