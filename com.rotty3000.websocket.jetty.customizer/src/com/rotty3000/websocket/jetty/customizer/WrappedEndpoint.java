@@ -26,10 +26,12 @@ class WrappedEndpoint extends Endpoint {
 			Session session = iterator.next();
 			iterator.remove();
 			try {
-				session.close(
-					new CloseReason(
-						CloseReason.CloseCodes.GOING_AWAY,
-						"Service has gone away"));
+				CloseReason closeReason = new CloseReason(
+					CloseReason.CloseCodes.GOING_AWAY, "Service has gone away");
+
+				session.close(closeReason);
+				endpoint.onClose(session, closeReason);
+				serviceObjects.ungetService(endpoint);
 			}
 			catch (IOException e) {
 				e.printStackTrace();
