@@ -13,3 +13,12 @@ pre {
 	font-face: monospace;
 	margin: 0 0 0 0;
 }
+
+a.switch {
+	text-decoration: none;
+	border: #cecece solid 1px;
+	padding: 2px;
+	color: black;
+	border-radius: 3px;
+	background-color: #f3f3f3;
+}

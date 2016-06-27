@@ -3,6 +3,7 @@ Private-Package: com.rotty3000.websocket.demo
 
 -buildpath: \
 	biz.aQute.bnd.annotation,\
+	com.springsource.org.json,\
 	javax.websocket-api,\
 	org.osgi.service.component.annotations,\
 	org.osgi.service.http

@@ -4,6 +4,17 @@
 	<link rel="stylesheet" type="text/css" href="/resources/style.css"/>
 	<script type="text/javascript">
 		var websocketsEnabled = ("WebSocket" in window);
+		var ws;
+
+		function collectFormData() {
+			var form = document.getElementById("logDetails");
+			var data = {};
+			for (var i = 0, element; element = form.elements[i++];) {
+				if (!element.name) continue;
+				data[element.name] = element.value;
+			}
+			return data;
+		}
 
 		function logg(msg) {
 			var output = document.getElementById('output')
@@ -11,41 +22,81 @@
 			output.scrollTop = output.scrollHeight;
 		}
 
-		function startLogging() {
+		function start() {
 			if (!websocketsEnabled) {
-				logg("[COM] No WebSocket support. Aborting!");
+				logg("[CON] No WebSocket support. Aborting!");
 
 				return;
 			}
 
-			var ws = new WebSocket("ws://" + document.location.host + "/simple");
+			var data = collectFormData();
+
+			if (!data.file) {
+				logg("[CON] Please enter a log file.");
+
+				return;
+			}
+
+			ws = new WebSocket("ws://" + document.location.host + "/logger");
 
 			ws.onopen = function() {
-				ws.send("START");
+				ws.send(JSON.stringify(data));
 
-				logg("[COM] Asked for logs");
+				logg("[CON] Asked for logs of [" + data.file + "] with [" + data.lines + "] lines of history.");
 			};
 
-			ws.onmessage = function (evt) {
-				logg("[LOG] " + evt.data);
+			ws.onmessage = function(event) {
+				logg(event.data);
 			};
 
-			ws.onclose = function() {
-				logg("[COM] Connection is closed.");
+			ws.onclose = function(event) {
+				logg("[CON] " + event.code + " Connection closed: " + event.reason);
+
+			    toggle();
 			};
+
+		    toggle();
+		}
+
+		function stop() {
+			if (!ws) {
+				return;
+			}
+
+			ws.onclose = function () {};
+			logg("[CON] Closing the connection.")
+			ws.send("STOP");
+		    ws.close()
+		    ws = null;
+
+		    toggle();
+		}
+
+		function toggle() {
+			var input = document.querySelector(".switch");
+			if (input.innerHTML == "Stop") {
+				input.innerHTML = "Start";
+				input.href="javascript:start()";
+			}
+			else {
+				input.innerHTML = "Stop";
+				input.href="javascript:stop()";
+			}
 		}
 	</script>
 </head>
 <body>
 	<h2>Log UI</h2>
-	<div id="sse">
-		<a href="javascript:startLogging()">Start Logging</a>
-	</div>
+	<form id="logDetails">
+		<label>Log file <input name="file" type="text" placeholder="Enter a log file name..." /></label>
+		<label>Number of lines <input name="lines" type="number" value="10" /></label>
+		<a class="switch" href="javascript:start()">Start</a>
+	</form>
 	<div id="output"></div>
 	<script>
 	(function() {
 		if (websocketsEnabled) {
-			logg("[COM] WebSocket supported by your Browser! Request the logs when ready!");
+			logg("[COM] WebSocket supported by your Browser! Start logging when ready!");
         }
         else {
         	logg("[COM] WebSocket NOT supported by your Browser!");
