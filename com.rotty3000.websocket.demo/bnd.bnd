@@ -1,11 +1,20 @@
 Bundle-Version: 1.0.0
 Private-Package: com.rotty3000.websocket.demo
 
+Require-Capability:\
+	osgi.extender;\
+		filter:="(osgi.extender=jetty.websocket.whiteboard)",\
+	osgi.implementation;\
+		filter:="(osgi.implementation=osgi.http)",\
+	osgi.implementation;\
+		filter:="(osgi.implementation=osgi.shell)";\
+		effective:=active
+
 -buildpath: \
-	biz.aQute.bnd.annotation,\
 	com.springsource.org.json,\
 	javax.websocket-api,\
+	org.eclipse.jetty.osgi-servlet-api,\
 	org.osgi.service.component.annotations,\
-	org.osgi.service.http
+	org.osgi.service.http.whiteboard
 
 -includeresource.bundle: META-INF/resources=web-resources

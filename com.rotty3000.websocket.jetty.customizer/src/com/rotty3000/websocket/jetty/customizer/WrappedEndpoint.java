@@ -1,6 +1,7 @@
 package com.rotty3000.websocket.jetty.customizer;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -9,7 +10,6 @@ import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
 
-import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.osgi.framework.ServiceObjects;
 
 class WrappedEndpoint extends Endpoint {
@@ -69,6 +69,6 @@ class WrappedEndpoint extends Endpoint {
 	private volatile boolean closed = false;
 	private final Endpoint endpoint;
 	private final ServiceObjects<Endpoint> serviceObjects;
-	private final Set<Session> sessions = new ConcurrentHashSet<>();
+	private final Set<Session> sessions = new HashSet<>();
 
 }

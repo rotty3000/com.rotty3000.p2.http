@@ -1,21 +1,45 @@
 package com.rotty3000.wake;
 
-import org.eclipse.equinox.http.jetty.JettyCustomizer;
-import org.eclipse.equinox.http.servlet.ExtendedHttpService;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleEvent;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.startlevel.BundleStartLevel;
+import org.osgi.util.tracker.BundleTracker;
 
 public class Activator implements BundleActivator {
 
-	public static final Class<?> CLASS1 = JettyCustomizer.class;
-	public static final Class<?> CLASS2 = ExtendedHttpService.class;
-
 	@Override
 	public void start(BundleContext context) throws Exception {
+		bt = new BundleTracker<Bundle>(context, Bundle.STARTING, null) {
+
+			@Override
+			public Bundle addingBundle(final Bundle bundle, BundleEvent event) {
+				BundleStartLevel startLevel = bundle.adapt(BundleStartLevel.class);
+
+				if (startLevel.isActivationPolicyUsed()) {
+					try {
+						bundle.start();
+					}
+					catch (BundleException e) {
+						//
+					}
+				}
+
+				return bundle;
+			}
+
+		};
+
+		bt.open();
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		bt.close();
 	}
+
+	private BundleTracker<Bundle> bt;
 
 }

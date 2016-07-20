@@ -26,15 +26,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 	scope = ServiceScope.PROTOTYPE,
 	service = Endpoint.class
 )
-public class LoggerEndpoint extends Endpoint {
-
-	enum Commands {
-		START
-	}
-
-	public static void log(Async remote, String message) {
-		remote.sendText(message);
-	}
+public class WebsocketEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig config) {
@@ -48,7 +40,7 @@ public class LoggerEndpoint extends Endpoint {
 						JSONObject jsonObject = new JSONObject(text);
 
 						if (!jsonObject.has("file")) {
-							log(remote, "[ERROR] No log file specified!");
+							remote.sendText("[ERROR] No log file specified!");
 
 							return;
 						}
@@ -59,8 +51,7 @@ public class LoggerEndpoint extends Endpoint {
 						File file = filePath.toFile();
 
 						if (!file.exists() || !file.canRead()) {
-							log(
-								remote,
+							remote.sendText(
 								"[ERROR] The file [" + fileName +
 									"] cannot be found!");
 
@@ -72,8 +63,7 @@ public class LoggerEndpoint extends Endpoint {
 							lines = jsonObject.getInt("lines");
 						}
 
-						log(
-							remote,
+						remote.sendText(
 							"[CON] Here come the logs for [" + fileName +
 								"] with [" + lines + "] of history.");
 
@@ -82,7 +72,7 @@ public class LoggerEndpoint extends Endpoint {
 						logReader.start();
 					}
 					catch (Exception e) {
-						log(remote, "[ERROR] " + e.getMessage());
+						remote.sendText("[ERROR] " + e.getMessage());
 					}
 				}
 
@@ -125,7 +115,7 @@ public class LoggerEndpoint extends Endpoint {
 						if (result == -1) {
 							if (!reachedFirstEOF && (lines > 0)) {
 								for (String line : fifo) {
-									log(remote, line);
+									remote.sendText(line);
 								}
 								fifo.clear();
 							}
@@ -147,7 +137,7 @@ public class LoggerEndpoint extends Endpoint {
 					    			}
 					    		}
 					    		else if (lineCurrent.length() != 0) {
-					    			log(remote, lineCurrent.toString());
+					    			remote.sendText(lineCurrent.toString());
 					    		}
 					    		lineCurrent = new StringBuilder();
 					    	}
@@ -156,7 +146,7 @@ public class LoggerEndpoint extends Endpoint {
 					}
 				}
 				catch (Exception e) {
-					log(remote, "[ERROR] " + e.getMessage());
+					remote.sendText("[ERROR] " + e.getMessage());
 				}
 			};
 

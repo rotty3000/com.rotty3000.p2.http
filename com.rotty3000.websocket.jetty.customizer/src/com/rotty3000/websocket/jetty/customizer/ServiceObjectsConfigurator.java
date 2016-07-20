@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.websocket.Endpoint;
 import javax.websocket.server.ServerEndpointConfig;
 
-import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.osgi.framework.ServiceObjects;
 
 public class ServiceObjectsConfigurator
@@ -42,6 +41,6 @@ public class ServiceObjectsConfigurator
 	}
 
 	private final ServiceObjects<Endpoint> serviceObjects;
-	private final Set<WrappedEndpoint> endpoints = new ConcurrentHashSet<>();
+	private final Set<WrappedEndpoint> endpoints = new HashSet<>();
 
 }
