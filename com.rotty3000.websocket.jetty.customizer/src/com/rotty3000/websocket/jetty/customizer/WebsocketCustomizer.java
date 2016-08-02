@@ -52,12 +52,12 @@ public class WebsocketCustomizer extends JettyCustomizer
 			configureContext =
 				WebSocketServerContainerInitializer.configureContext(
 					(ServletContextHandler)context);
-		}
-		catch (ServletException se) {
-			throw new RuntimeException(se);
-		}
 
-		serviceTracker.open();
+			serviceTracker.open();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return context;
 	}
