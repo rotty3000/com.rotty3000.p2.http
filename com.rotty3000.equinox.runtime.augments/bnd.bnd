@@ -1,0 +1,15 @@
+Bundle-Version: 1.0.0
+Conditional-Package:\
+	aQute.bnd.header,\
+	aQute.bnd.osgi.resource,\
+	aQute.bnd.version,\
+	aQute.lib.collections,\
+	aQute.lib.hex,\
+	aQute.libg.filters,\
+	aQute.libg.generics,\
+  	aQute.libg.qtokens,\
+	aQute.service.reporter
+
+-buildpath: \
+	org.eclipse.osgi;version=3.12,\
+	biz.aQute.bndlib

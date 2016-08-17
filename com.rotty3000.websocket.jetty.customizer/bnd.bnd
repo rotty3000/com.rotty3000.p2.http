@@ -1,5 +1,5 @@
 Bundle-Version: 1.0.0
-Fragment-Host: org.eclipse.equinox.http.jetty
+Fragment-Host: org.eclipse.equinox.http.jetty;bundle-version=3.3.100
 
 Provide-Capability:\
 	osgi.extender;\

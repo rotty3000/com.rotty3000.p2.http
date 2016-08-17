@@ -2,30 +2,29 @@
 # This file is left open for you to define your macros
 #
 
--buildrepo: Local
+-buildrepo: "MavenLocal"
 
 -plugin.4.Central: \
-    aQute.bnd.deployer.repository.wrapper.Plugin; \
-        location            =	"${build}/cache/wrapper"; \
-        reindex				=	true, \
     aQute.bnd.repository.maven.provider.MavenBndRepository; \
 		releaseUrl			=	https://repo.maven.apache.org/maven2/; \
-		name				=	Central
+		name				=	"MavenCentral"
 
 -plugin.6.Local: \
     aQute.bnd.repository.maven.provider.MavenBndRepository; \
-        name                =	Local
-
-#-plugin.7.NeonI20160606-1100: \
-#    aQute.bnd.repository.p2.provider.P2Repository; \
-#        name				=	"NeonI20160606-1100"; \
-#        url					=	"http://download.eclipse.org/eclipse/updates/4.6-I-builds/I20160606-1100/"
+        name                =	"MavenLocal"
 
 -plugin.7.Jetty9.3.9.v20160517: \
     aQute.bnd.repository.p2.provider.P2Repository; \
-        name				=	"Jetty9.3.9.v20160517"; \
+        name				=	"Eclipse Jetty (9.3.9)"; \
         url					=	"http://download.eclipse.org/jetty/updates/jetty-bundles-9.x/9.3.9.v20160517/"
+
+-plugin.z.NeonR-4.6-201606061100: \
+    aQute.bnd.repository.p2.provider.P2Repository; \
+        name				=	"Eclipse Neon (4.6)"; \
+        url					=	"http://download.eclipse.org/eclipse/updates/4.6/R-4.6-201606061100/"
 
 -pom: \
     groupid =   com.rotty3000, \
     version =   ${versionmask;===;${@version}}-SNAPSHOT
+
+-runpath.default: run.resources
