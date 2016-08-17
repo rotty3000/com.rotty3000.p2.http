@@ -10,7 +10,6 @@
 					   osgi.implementation;osgi.implementation=osgi.event"; \
 		requirement:= "osgi.extender;filter:='(osgi.extender=osgi.component)'"
 
-#
 -augment.fe_ht: \
 	org.apache.felix.http.api; \
 		requirement:="osgi.implementation;filter:='(&(osgi.implementation=osgi.http)(version>=1.0.0)(!(version>=2.0)))'"
@@ -20,7 +19,6 @@
 		requirement:="osgi.remoteserviceadmin.distribution;filter:='(configs=*)', \
 		              osgi.remoteserviceadmin.topology;filter:='(policy=*)', \
 		              osgi.remoteserviceadmin.discovery;filter:='(protocols=*)'"
-
 
 -augment.os_me: \
 	org.osgi.service.metatype; \
@@ -40,22 +38,17 @@
 	org.apache.felix.log; \
 		capability:= "osgi.implementation;osgi.implementation=osgi.log"
 
-
 -augment.fe_sc: \
 	org.apache.felix.scr; \
 		requirement:="osgi.implementation;filter:='(osgi.implementation=osgi.metatype)'"
 
-#
-
 -augment.eq_ht_je: \
 	org.eclipse.equinox.http.jetty; \
-		capability:="  equinox.module.data;activation.policy=eager, \
-					   generic.dependency;generic.dependency='osgi.servlet.container';version:Version='1.0.0'"
+		capability:="  equinox.module.data;activation.policy=eager"
 
 -augment.eq_ht_se: \
 	org.eclipse.equinox.http.servlet; \
-		capability:="  equinox.module.data;activation.policy=eager"; \
-		requirement:=" generic.dependency;filter:='(generic.dependency=osgi.servlet.container)';effective:=active"
+		capability:="  equinox.module.data;activation.policy=eager"
 
 -augment.fe_gc: \
 	org.apache.felix.gogo.command; \

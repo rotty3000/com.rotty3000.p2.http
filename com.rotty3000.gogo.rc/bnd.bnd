@@ -1,4 +1,4 @@
 Bundle-Version: 1.0.0
 -buildpath: \
-	org.osgi.service.component.annotations,\
-	org.eclipse.osgi
+	org.eclipse.osgi,\
+	osgi.enroute.base.api

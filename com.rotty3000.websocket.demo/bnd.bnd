@@ -13,8 +13,6 @@ Require-Capability:\
 -buildpath: \
 	com.springsource.org.json,\
 	javax.websocket-api,\
-	org.eclipse.jetty.osgi-servlet-api,\
-	org.osgi.service.component.annotations,\
-	org.osgi.service.http.whiteboard
+	osgi.enroute.base.api
 
 -includeresource.bundle: META-INF/resources=web-resources

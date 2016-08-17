@@ -4,24 +4,30 @@
 
 -buildrepo: "MavenLocal"
 
+-plugin.3.Local: \
+    aQute.bnd.repository.maven.provider.MavenBndRepository; \
+        name                =	"MavenLocal"
+
 -plugin.4.Central: \
     aQute.bnd.repository.maven.provider.MavenBndRepository; \
 		releaseUrl			=	https://repo.maven.apache.org/maven2/; \
 		name				=	"MavenCentral"
 
--plugin.6.Local: \
-    aQute.bnd.repository.maven.provider.MavenBndRepository; \
-        name                =	"MavenLocal"
+-plugin.7.Committed: \
+    aQute.bnd.deployer.repository.LocalIndexedRepo; \
+        local               =   ${build}/local; \
+        name                =   Committed; \
+        pretty              =   true
 
 -plugin.7.Jetty9.3.9.v20160517: \
     aQute.bnd.repository.p2.provider.P2Repository; \
         name				=	"Eclipse Jetty (9.3.9)"; \
         url					=	"http://download.eclipse.org/jetty/updates/jetty-bundles-9.x/9.3.9.v20160517/"
 
--plugin.z.NeonR-4.6-201606061100: \
-    aQute.bnd.repository.p2.provider.P2Repository; \
-        name				=	"Eclipse Neon (4.6)"; \
-        url					=	"http://download.eclipse.org/eclipse/updates/4.6/R-4.6-201606061100/"
+#-plugin.z.NeonR-4.6-201606061100: \
+#    aQute.bnd.repository.p2.provider.P2Repository; \
+#        name				=	"Eclipse Neon (4.6)"; \
+#        url					=	"http://download.eclipse.org/eclipse/updates/4.6/R-4.6-201606061100/"
 
 -pom: \
     groupid =   com.rotty3000, \
